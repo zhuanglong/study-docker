@@ -1,0 +1,44 @@
+version: '3'
+services:
+  mongodb:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    # 初始化时设置数据库用户信息
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root123456
+    # volumes:
+    #   # - ./db:/data/db
+    networks:
+      - express-jwt
+    container_name: mongodb_container
+  server:
+    build: ./backend
+    image: server
+    ports:
+      - 9090:9090
+    # server 容器的环境变量，在 ./backend/utils/secret.js 里面会使用到
+    environment:
+      DB_HOST: mongodb_container
+      DB_USERNAME: root
+      DB_PASSWORD: root123456
+    # 以依赖顺序启动服务，先启动 mongodb，才会启动 server
+    depends_on:
+      - mongodb
+    networks:
+      - express-jwt
+    container_name: server_container
+  web:
+    build: ./frontend
+    image: web
+    ports:
+     - "9000:80"
+    depends_on:
+      - server
+    networks:
+      - express-jwt
+    container_name: web_container
+networks:
+  express-jwt:
+
