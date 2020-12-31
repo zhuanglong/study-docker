@@ -41,4 +41,3 @@ services:
     container_name: web_container
 networks:
   express-jwt:
-
