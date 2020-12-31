@@ -6,7 +6,8 @@
 
 1. 安装 Docker 环境
 
-2. 构建镜像 
+2. 构建镜像
+
     切换到项目根目录，`docker-compose up -d --build`
 
 3. 验证是否正常运行
