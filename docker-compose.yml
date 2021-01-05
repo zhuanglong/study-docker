@@ -1,0 +1,14 @@
+version: "3"
+services:
+  gitlab:
+    image: gitlab/gitlab-ce
+    container_name: gitlab_container
+    ports:
+      - "8888:80"
+      - "442:443"
+      - "21:22"
+    volumes:
+      - "/data/gitlab/cfg:/etc/gitlab"
+      - "/data/gitlab/logs:/var/log/gitlab"
+      - "/data/gitlab/data:/var/opt/gitlab"
+    restart: always
