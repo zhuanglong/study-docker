@@ -199,7 +199,7 @@ services:
     build: ./frontend
     image: web
     ports:
-     - "9000:80"
+      - 9000:80
     depends_on:
       - server
     networks:
