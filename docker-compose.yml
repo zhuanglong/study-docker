@@ -1,14 +1,25 @@
 version: "3"
 services:
-  gitlab:
-    image: gitlab/gitlab-ce
-    container_name: gitlab_container
+  # gitlab:
+  #   image: gitlab/gitlab-ce
+  #   container_name: gitlab_container
+  #   ports:
+  #     - "800:80"
+  #     - "4433:443"
+  #     - "222:22"
+  #   # volumes:
+  #   #   - "/share/gitlab/cfg:/etc/gitlab"
+  #   #   - "/share/gitlab/logs:/var/log/gitlab"
+  #   #   - "/share/gitlab/data:/var/opt/gitlab"
+  #   # restart: always
+  jenkins:
+    image: jenkins/jenkins:lts
+    user: root
+    container_name: jenkins_container
     ports:
-      - "8888:80"
-      - "442:443"
-      - "21:22"
-    volumes:
-      - "/data/gitlab/cfg:/etc/gitlab"
-      - "/data/gitlab/logs:/var/log/gitlab"
-      - "/data/gitlab/data:/var/opt/gitlab"
-    restart: always
+      - "8081:8080"
+    # volumes:
+    #   - "/var/run/docker.sock:/var/run/docker.sock"
+    #   - "/data/jenkins:/var/jenkins_home"
+    #   - "/usr/bin/docker:/usr/bin/docker"
+    # restart: always
