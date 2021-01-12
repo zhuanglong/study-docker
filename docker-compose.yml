@@ -9,13 +9,17 @@ services:
       - "4433:443"
       - "222:22"
     # volumes:
+    #   - '$HOME/docker-share/gitlab/config:/etc/gitlab'
+    #   - '$HOME/docker-share/gitlab/logs:/var/log/gitlab'
+    #   - '$HOME/docker-share/gitlab/data:/var/opt/gitlab'
+    # volumes:
     #   - 'D:\Develop\Docker\docker-share\gitlab\config:/etc/gitlab'
     #   - 'D:\Develop\Docker\docker-share\gitlab\logs:/var/log/gitlab'
     #   - 'D:\Develop\Docker\docker-share\gitlab\data:/var/opt/gitlab'
-    volumes:
-      - "/docker-share/gitlab/cfg:/etc/gitlab"
-      - "/docker-share/gitlab/logs:/var/log/gitlab"
-      - "/docker-share/gitlab/data:/var/opt/gitlab"
+    # volumes:
+    #   - "/docker-share/gitlab/cfg:/etc/gitlab"
+    #   - "/docker-share/gitlab/logs:/var/log/gitlab"
+    #   - "/docker-share/gitlab/data:/var/opt/gitlab"
     # restart: always
   # jenkins:
   #   image: jenkins/jenkins:lts
