@@ -1,6 +1,6 @@
 # Docker 部署 Node 项目
 
-[项目地址](https://github.com/zhuanglong/study-docker/tree/docker-express-demo)
+[项目地址](https://github.com/zhuanglong/docker-express-demo)
 
 > 环境准备：
 
@@ -56,64 +56,54 @@ npm-debug.log
 
 **2. 构建镜像**
 
-首先启动 Docker 虚拟机（`test` 是我已经创建好的虚拟机），[创建 Docker 虚拟机教程](https://www.runoob.com/docker/docker-machine.html)
+把项目上传到 centos
 
-`docker-machine start test`
-
-![](https://gitee.com/zloooong/image_store/raw/master/img/20201222170732.png)
-
-查看虚拟机状态，可以看到已运行，记下虚拟机的 ip，下面会用到
-
-`docker-machine ls`
-
-![](https://gitee.com/zloooong/image_store/raw/master/img/20201222175306.png)
-
-切换到项目目录
-
-`cd /D/My/Docker/docker-express-demo`
-
-![](https://gitee.com/zloooong/image_store/raw/master/img/20201222172653.png)
+![](https://gitee.com/zloooong/image_store/raw/master/img/20210308001342.png)
 
 进行构建，"docker-express-demo"是应用名称， "."表示当前目录
 
 `docker build -t docker-express-demo .`
 
-![](https://gitee.com/zloooong/image_store/raw/master/img/20201222173929.png)
+![](https://gitee.com/zloooong/image_store/raw/master/img/20210308001514.png)
 
 查看已安装的镜像
 
 `docker images`
 
-![](https://gitee.com/zloooong/image_store/raw/master/img/20201222174025.png)
+![](https://gitee.com/zloooong/image_store/raw/master/img/20210308001852.png)
 
 **3. 通过 docker-express-demo 镜像创建一个容器并运行**
 
 `docker run -d -p 3030:3000 docker-express-demo`
-
-![](https://gitee.com/zloooong/image_store/raw/master/img/20201222174651.png)
 
 > -d：表明容器会在后台运行。  
 -p：表示端口映射，把本机的 3030 端口映射到容器的 3000 端口，这样外网就能通过本机的 3030 端口访问。
 
 查看容器状态，`docker ps -a`
 
-![](https://gitee.com/zloooong/image_store/raw/master/img/20201222174727.png)
+![](https://gitee.com/zloooong/image_store/raw/master/img/20210308002150.png)
 
-进入容器，`docker exec -it da2483e9b4e1 sh`
+进入容器，`docker exec -it 8709e0efbc3e sh`
 
-![](https://gitee.com/zloooong/image_store/raw/master/img/20201223145018.png)
+![](https://gitee.com/zloooong/image_store/raw/master/img/20210308002308.png)
+
+退出容器，`exit`
 
 **4. 访问应用**
 
+虚拟机设为桥接网卡，在 centos 内 `ifconfig` 查看 IP
+
+![](https://gitee.com/zloooong/image_store/raw/master/img/20210308002825.png)
+
 curl 测试
 
-`curl -i 192.168.99.100:3030`
+`curl -i 192.168.3.13:3030`
 
-![](https://gitee.com/zloooong/image_store/raw/master/img/20201222175937.png)
+![](https://gitee.com/zloooong/image_store/raw/master/img/20210308002550.png)
 
 浏览器测试
 
-![](https://gitee.com/zloooong/image_store/raw/master/img/20201222175648.png)
+![](https://gitee.com/zloooong/image_store/raw/master/img/20210308002612.png)
 
 ## docker-compose 简化执行命令
 
@@ -142,33 +132,19 @@ services:
 > - ports: 端口映射
 > - container_name: 构建的容器名称
 
-
-切换到项目目录
-
-`cd /D/My/Docker/docker-express-demo`
-
 构建命令
 
 `docker-compose up -d --build`
 
-![](https://gitee.com/zloooong/image_store/raw/master/img/20201223164520.png)
-
 成功运行
 
-![](https://gitee.com/zloooong/image_store/raw/master/img/20201223164434.png)
+![](https://gitee.com/zloooong/image_store/raw/master/img/20210308003909.png)
 
 docker-compose 基本命令
 
-![](https://gitee.com/zloooong/image_store/raw/master/img/20201223173745.png)
-
-## 总结
-
-创建 Docker 虚拟机，用 Dockerfile 定制镜像配置，然后构建镜像，创建容器并运行，还可以用 docker-compose.yml 简化执行命令。
+![](https://gitee.com/zloooong/image_store/raw/master/img/20210308004057.png)
 
 ## 参考
 
 - [Docker部署 nodejs项目](https://www.jianshu.com/p/ab76ba86eafc)
-
-- [Docker 搭建你的第一个 Node 项目到服务器](https://blog.csdn.net/qq_45401061/article/details/103782461)
-
 - [Docker 部署 React 全栈应用（三）](https://juejin.cn/post/6908534600578891789#heading-1)
